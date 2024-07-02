@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { extractCurrency, extractDescription, extractPrice } from "../util";
+import { extractCurrency, extractDescription, extractPrice } from "../utils";
 
 export async function scrapeAmazonProduct(url: string) {
     if (!url) return;
@@ -24,11 +24,14 @@ export async function scrapeAmazonProduct(url: string) {
         const $ = cheerio.load(response.data);
 
         const title = $("#productTitle").text().trim();
+        const currency = extractCurrency($(".a-price-symbol"));
         const currentPrice = $(
             "span.a-price.a-text-price.a-size-medium.apexPriceToPay span:nth-child(2)"
         )
             .text()
-            .trim();
+            .trim()
+            .replace(/[^0-9.]/g, "");
+
         const originalPrice = extractPrice(
             $("#priceblock_ourprice"),
             $(".a-price.a-text-price span.a-offscreen"),
@@ -36,36 +39,50 @@ export async function scrapeAmazonProduct(url: string) {
             $("#priceblock_dealprice"),
             $(".a-size-base.a-color-price")
         );
+
+        const discountRate = $(".savingsPercentage")
+            .text()
+            .replace(/[-%]/g, "");
+
         const images =
             $("#imgBlkFront").attr("data-a-dynamic-image") ||
             $("#landingImage").attr("data-a-dynamic-image") ||
             "{}";
         const imageUrls = Object.keys(JSON.parse(images));
-        const currency = extractCurrency($(".a-price-symbol"));
-        const discountRate = $(".savingsPercentage")
+
+        const reviewsCount = $("#acrCustomerReviewText")
             .text()
-            .replace(/[-%]/g, "");
+            .trim()
+            .replace(/[^0-9]/g, "");
+
+        const stars = $("#acrPopover").attr("title")?.slice(0, 3);
+
         const outOfStock =
             $("#availability span").text().trim().toLocaleLowerCase() ===
             "currently unavailable";
+
         const description = extractDescription($);
 
         const data = {
             url,
             title: title,
             currency: currency || "$",
-            currentPrice: currentPrice || "NaN",
-            originalPrice: Number(originalPrice),
+            currentPrice: Number(currentPrice) || Number(originalPrice),
+            originalPrice: Number(originalPrice) || Number(currentPrice),
             discountRate: Number(discountRate),
             priceHistory: [],
             image: imageUrls[0] || "",
             category: "category",
-            reviewsCount: 100, //TODO
-            stars: 4.5, //TODO
-            description: description,
+            reviewsCount: Number(reviewsCount) || "NaN",
+            stars: Number(stars) || "NaN",
             isOutOfStock: outOfStock,
+            description: description,
+            lowestPrice: Number(currentPrice) || Number(originalPrice),
+            highestPrice: Number(originalPrice) || Number(currentPrice),
+            averagePrice: (Number(currentPrice) + Number(originalPrice)) / 2,
         };
-        console.log(data);
+
+        return data;
     } catch (error: any) {
         throw new Error(`Failed to scrape product: ${error.message}`);
     }
