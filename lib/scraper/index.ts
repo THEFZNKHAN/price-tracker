@@ -52,7 +52,6 @@ export async function scrapeAmazonProduct(url: string) {
 
         const reviewsCount = $("#acrCustomerReviewText")
             .text()
-            .trim()
             .replace(/[^0-9]/g, "");
 
         const stars = $("#acrPopover").attr("title")?.slice(0, 3);
@@ -74,7 +73,7 @@ export async function scrapeAmazonProduct(url: string) {
             image: imageUrls[0] || "",
             category: "category",
             reviewsCount: Number(reviewsCount) || "NaN",
-            stars: Number(stars) || "NaN",
+            rating: Number(stars) || "NaN",
             isOutOfStock: outOfStock,
             description: description,
             lowestPrice: Number(currentPrice) || Number(originalPrice),
