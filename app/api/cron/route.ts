@@ -10,7 +10,7 @@ import { connectToDB } from "@/lib/mongoose";
 import { scrapeAmazonProduct } from "@/lib/scraper";
 import { generateEmailBody, sendEmail } from "@/lib/nodemailer";
 
-export const maxDuration = 5;
+// export const maxDuration = 1;
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
