@@ -5,8 +5,9 @@ import { redirect } from "next/navigation";
 import { Product } from "@/types";
 import { formatNumber } from "@/lib/utils";
 import { getProductById, getSimilarProducts } from "@/lib/actions";
-import PriceInfoCard from "@/components/PriceInfoCard";
+import Modal from "@/components/Modal";
 import ProductCard from "@/components/ProductCard";
+import PriceInfoCard from "@/components/PriceInfoCard";
 
 type Props = {
     params: {
@@ -162,6 +163,8 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                             />
                         </div>
                     </div>
+
+                    <Modal productId={id} />
                 </div>
             </div>
 
@@ -199,7 +202,7 @@ const ProductDetails = async ({ params: { id } }: Props) => {
                     <p className="section-text">Similar Products</p>
 
                     <div className="flex flex-wrap gap-10 mt-7 w-full">
-                        {similarProducts.map((products) => (
+                        {similarProducts.map((product) => (
                             <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
