@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Amazon Price Tracker
 
-## Getting Started
+- Developed using Next.js, this e-commerce product scraping site is designed to assist users in making informed decisions. It notifies users when a product drops in price and helps competitors by alerting them when the product is out of stock, all managed through cron jobs.
 
-First, run the development server:
+## Home Page:
+![image](https://github.com/THEFZNKHAN/price-tracker/assets/124388165/4ce2b85f-9c67-47af-89a4-090b2ce7a89e)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Home Page (Trending Section):
+![image](https://github.com/THEFZNKHAN/price-tracker/assets/124388165/b4d81ff2-5586-4da4-8fa8-e643ad8eeffa)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Product Details Page:
+![image](https://github.com/THEFZNKHAN/price-tracker/assets/124388165/7690c5d5-1157-4a7c-9fc6-c6ca27a71566)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js
+- Cheerio
+- Nodemailer
+- MongoDB
+- Headless UI
+- Tailwind CSS
 
-## Learn More
+## 🔋 Features
 
-To learn more about Next.js, take a look at the following resources:
+👉 **Header with Carousel**: Visually appealing header with a carousel showcasing key features and benefits
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+👉 **Product Scraping**: A search bar allowing users to input Amazon product links for scraping.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+👉 **Scraped Projects**: Displays the details of products scraped so far, offering insights into tracked items.
 
-## Deploy on Vercel
+👉 **Scraped Product Details**: Showcase the product image, title, pricing, details, and other relevant information scraped from the original website
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+👉 **Track Option**: Modal for users to provide email addresses and opt-in for tracking.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+👉 **Email Notifications**: Send emails product alert emails for various scenarios, e.g., back in stock alerts or lowest price notifications.
+
+👉 **Automated Cron Jobs**: Utilize cron jobs to automate periodic scraping, ensuring data is up-to-date.
+
+and many more, including code architecture and reusability 
+
+## 📄 Contribute
+- feel free to contribute and raise issues.
+
+## 🚀 Live Demo
+
+Check out the live demo [here](https://v-price-tracker.vercel.app).
+
+
